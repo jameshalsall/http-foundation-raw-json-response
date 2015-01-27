@@ -18,6 +18,19 @@ class RawJsonResponseTest extends \PHPUnit_Framework_TestCase
     public function testConstructor($data)
     {
         $response = new RawJsonResponse($data);
+
+        $this->assertEquals(RawJsonResponse::HTTP_OK, $response->getStatusCode());
+        $this->assertEquals($data, $response->getContent());
+    }
+
+    /**
+     * @dataProvider getRawJsonData
+     */
+    public function testConstructorWithStatusCode($data)
+    {
+        $response = new RawJsonResponse($data, RawJsonResponse::HTTP_FORBIDDEN);
+
+        $this->assertEquals(RawJsonResponse::HTTP_FORBIDDEN, $response->getStatusCode());
         $this->assertEquals($data, $response->getContent());
     }
 
